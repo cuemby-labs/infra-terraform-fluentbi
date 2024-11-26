@@ -1,10 +1,44 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template walrus-template-template
+  title: OpenAPI schema for FluentBit template .
 components:
   schemas:
     variables:
       type: object
+      properties:
+        namespace_name:
+          title: Namespace Name
+          type: string
+          description: The name of the Kubernetes namespace.
+          default: fluent-bit
+          x-walrus-ui:
+            group: Basic
+            order: 1
+        chart_version:
+          title: Chart Version
+          type: string
+          description: The version of the fluent-bit Helm release chart.
+          default: 0.48.2
+          x-walrus-ui:
+            group: Basic
+            order: 2
+        config_output:
+          title: Config Output
+          type: string
+          description: YAML configuration for the Fluent Bit output plugin.
+          default: |
+            [OUTPUT]
+                Name http
+                Match *
+                host <victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local
+                port 9428
+                uri /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
+                format json_lines
+                json_date_format iso8601
+                compress gzip
+          x-walrus-ui:
+            group: Basic
+            order: 3
       x-walrus-ui:
         groupOrder:
         - Basic
