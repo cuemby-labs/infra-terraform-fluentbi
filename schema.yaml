@@ -36,6 +36,10 @@ components:
                 format json_lines
                 json_date_format iso8601
                 compress gzip
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
           x-walrus-ui:
             colSpan: 12
             group: Basic
