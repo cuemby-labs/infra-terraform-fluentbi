@@ -17,7 +17,7 @@ resource "helm_release" "fluent_bit" {
 
   set_sensitive {
     name  = "config.outputs"
-    value = var.config_output
+    value = local.config_output_yaml
   }
 }
 
@@ -27,6 +27,8 @@ resource "helm_release" "fluent_bit" {
 
 locals {
   context = var.context
+
+  config_output_yaml = yamlencode(var.config_output)
 }
 
 module "submodule" {
