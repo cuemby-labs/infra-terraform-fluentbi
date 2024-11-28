@@ -16,19 +16,18 @@ variable "chart_version" {
 
 variable "config_output" {
   description = "YAML configuration for the Fluent Bit output plugin."
-  type        = map(any)
-  default = {
-    OUTPUT = {
-      Name              = "http"
-      Match             = "*"
-      host              = "<victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local"
-      port              = "9428"
-      uri               = "/insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date"
-      format            = "json_lines"
-      json_date_format  = "iso8601"
-      compress          = "gzip"
-    }
-  }
+  type        = any
+  default = <<EOT
+[OUTPUT]
+  Name http
+  Match *
+  host <victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local
+  port 9428
+  uri /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
+  format json_lines
+  json_date_format iso8601
+  compress gzip
+EOT
 }
 
 #
