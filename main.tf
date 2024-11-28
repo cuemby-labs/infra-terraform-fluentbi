@@ -17,7 +17,7 @@ resource "helm_release" "fluent_bit" {
 
   set_sensitive {
     name  = "config.outputs"
-    value = var.config_output
+    value = local.config_output_literal
   }
 }
 
@@ -27,6 +27,11 @@ resource "helm_release" "fluent_bit" {
 
 locals {
   context = var.context
+
+  config_output_literal = <<EOT
+[OUTPUT]
+${join("\n", [for k, v in var.config_output : "    ${k}            ${v}"])}
+EOT
 }
 
 module "submodule" {
