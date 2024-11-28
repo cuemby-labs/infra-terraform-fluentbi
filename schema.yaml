@@ -37,6 +37,7 @@ components:
                 json_date_format iso8601
                 compress gzip
           x-walrus-ui:
+            colSpan: 12
             group: Basic
             order: 3
       x-walrus-ui:
