@@ -24,7 +24,7 @@ components:
             order: 2
         config_output:
           title: Config Output
-          type: string
+          type: object
           description: YAML configuration for the Fluent Bit output plugin.
           default: |
             [OUTPUT]
