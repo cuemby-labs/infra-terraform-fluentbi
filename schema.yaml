@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for FluentBit template .
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
@@ -36,7 +36,7 @@ components:
             port: "9428"
             uri: /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
           additionalProperties:
-            type: object
+            type: any
             x-walrus-ui:
               colSpan: 12
           x-walrus-ui:
