@@ -17,7 +17,7 @@ variable "chart_version" {
 variable "config_output" {
   description = "YAML configuration for the Fluent Bit output plugin."
   type        = map(any)
-  default     = ""
+  default     = {}
 }
 
 #
