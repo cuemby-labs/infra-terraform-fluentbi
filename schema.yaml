@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for FluentBit template .
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
@@ -24,23 +24,19 @@ components:
             order: 2
         config_output:
           title: Config Output
-          type: object
+          type: string
           description: YAML configuration for the Fluent Bit output plugin.
-          default:
-            Match: '*'
-            Name: http
-            compress: gzip
-            format: json_lines
-            host: <victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local
-            json_date_format: iso8601
-            port: "9428"
-            uri: /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
-          additionalProperties:
-            type: object
-            x-walrus-ui:
-              colSpan: 12
+          default: |
+            [OUTPUT]
+              Name http
+              Match *
+              host <victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local
+              port 9428
+              uri /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
+              format json_lines
+              json_date_format iso8601
+              compress gzip
           x-walrus-ui:
-            colSpan: 12
             group: Basic
             order: 3
             widget: YamlEditor

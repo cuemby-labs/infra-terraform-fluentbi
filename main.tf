@@ -17,7 +17,7 @@ resource "helm_release" "fluent_bit" {
 
   set_sensitive {
     name  = "config.outputs"
-    value = local.config_output_literal
+    value = yamldecode(var.config_output)
   }
 }
 
