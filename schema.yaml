@@ -36,11 +36,14 @@ components:
             port: "9428"
             uri: /insert/jsonline?_stream_fields=stream&_msg_field=log&_time_field=date
           additionalProperties:
-            type: string
+            type: object
+            x-walrus-ui:
+              colSpan: 12
           x-walrus-ui:
             colSpan: 12
             group: Basic
             order: 3
+            widget: YamlEditor
       x-walrus-ui:
         groupOrder:
         - Basic

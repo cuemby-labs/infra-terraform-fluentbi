@@ -30,7 +30,7 @@ locals {
 
   config_output_literal = <<EOT
 [OUTPUT]
-${join("\n", [for k, v in var.config_output : "    ${k}            ${v}"])}
+${join("\n", [for k, v in var.config_output : "    ${k} ${tostring(v)}"])}
 EOT
 }
 
