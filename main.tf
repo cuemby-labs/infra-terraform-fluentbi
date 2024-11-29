@@ -15,9 +15,9 @@ resource "helm_release" "fluent_bit" {
   version    = var.chart_version
   namespace  = var.namespace_name
 
-  set_sensitive {
+  set {
     name  = "config.outputs"
-    value = yamldecode(var.config_output)
+    value = local.config_output_literal
   }
 }
 
@@ -28,10 +28,10 @@ resource "helm_release" "fluent_bit" {
 locals {
   context = var.context
 
-#   config_output_literal = <<EOT
-# [OUTPUT]
-# ${join("\n", [for k, v in var.config_output : "    ${k} ${tostring(v)}"])}
-# EOT
+  config_output_literal = <<EOT
+[OUTPUT]
+${join("\n", [for k, v in var.config_output : "    ${k} ${tostring(v)}"])}
+EOT
 }
 
 module "submodule" {
