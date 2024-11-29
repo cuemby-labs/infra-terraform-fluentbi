@@ -18,7 +18,6 @@ variable "config_output" {
   description = "YAML configuration for the Fluent Bit output plugin."
   type        = map(any)
   default = {
-    OUTPUT = {
       Name              = "http"
       Match             = "*"
       host              = "<victoria-logs-service>.<victoria-logs-service-namespace>.svc.cluster.local"
@@ -27,7 +26,6 @@ variable "config_output" {
       format            = "json_lines"
       json_date_format  = "iso8601"
       compress          = "gzip"
-    }
   }
 }
 
