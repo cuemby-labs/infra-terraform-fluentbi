@@ -28,13 +28,13 @@ resource "helm_release" "fluent_bit" {
 locals {
   context = var.context
 
-    # Generar el mapa final asegurando que los valores por defecto no se mezclen
+  # Filtrar las claves explícitas definidas en el input
   config_filtered = {
     for k, v in var.config_output :
-    k => v if !(contains(keys(var.config_output.default), k) && var.config_output[k] == var.config_output.default[k])
+    k => v if lookup(var.config_output, k, null) != var.config_output.default[k]
   }
 
-  # Generar la configuración final
+  # Generar la configuración literal final
   config_output_literal = <<EOT
 [OUTPUT]
 ${join("\n", [
