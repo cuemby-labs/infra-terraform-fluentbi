@@ -28,13 +28,13 @@ resource "helm_release" "fluent_bit" {
 locals {
   context = var.context
 
-  # Filtrar las claves explícitas definidas en el input
+  # Usar solo claves explícitas en el input
   config_filtered = {
     for k, v in var.config_output :
-    k => v if lookup(var.config_output, k, null) != var.config_output.default[k]
+    k => v if !(contains(keys(var.config_output), k) && v == var.config_output.default[k])
   }
 
-  # Generar la configuración literal final
+  # Generar la configuración literal
   config_output_literal = <<EOT
 [OUTPUT]
 ${join("\n", [
