@@ -15,7 +15,7 @@ resource "helm_release" "fluent_bit" {
   version    = var.chart_version
   namespace  = var.namespace_name
 
-  set {
+  set_sensitive {
     name  = "config.outputs"
     value = local.config_output_literal
   }
@@ -30,7 +30,10 @@ locals {
 
   config_output_literal = <<EOT
 [OUTPUT]
-${join("\n", [for k, v in var.config_output : "    ${k} ${tostring(v)}"])}
+${join("\n", [
+  for k, v in var.config_output :
+  "    ${k} ${tostring(try(v, "default"))}"
+])}
 EOT
 }
 
