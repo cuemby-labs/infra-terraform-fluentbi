@@ -18,6 +18,8 @@ resource "kubernetes_namespace" "fluent_bit" {
 }
 
 resource "helm_release" "fluent_bit" {
+  depends_on = [kubernetes_namespace.fluent_bit]
+
   name       = "fluent-bit"
   repository = "https://fluent.github.io/helm-charts"
   chart      = "fluent-bit"
