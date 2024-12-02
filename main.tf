@@ -1,11 +1,20 @@
 #
-# Netris Operator Resources
+# Fluent Bit Resources
 #
+
+data "kubernetes_namespace" "existing_namespace" {
+  metadata {
+    name = var.namespace_name
+  }
+}
 
 resource "kubernetes_namespace" "fluent_bit" {
   metadata {
     name = var.namespace_name
   }
+
+  # Solo aplica si el Namespace no existe
+  count = length(data.kubernetes_namespace.existing_namespace.id) == 0 ? 1 : 0
 }
 
 resource "helm_release" "fluent_bit" {
