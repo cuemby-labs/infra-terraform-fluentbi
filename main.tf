@@ -15,6 +15,15 @@ resource "helm_release" "fluent_bit" {
   version    = var.chart_version
   namespace  = var.namespace_name
 
+  values = [
+    templatefile("${path.module}/values.yaml.tpl", {
+      request_memory = var.resources["requests"]["memory"],
+      limits_memory  = var.resources["limits"]["memory"],
+      request_cpu    = var.resources["requests"]["cpu"],
+      limits_cpu     = var.resources["limits"]["cpu"]
+    })
+  ]
+
   set_sensitive {
     name  = "config.outputs"
     value = local.config_output_literal

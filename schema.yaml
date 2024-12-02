@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for FluentBit template .
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
@@ -36,6 +36,27 @@ components:
             group: Basic
             order: 3
             widget: YamlEditor
+        resources:
+          title: Resources
+          type: object
+          description: Resource limits and requests for the FluentBit Helm release.
+          default:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+            x-walrus-ui:
+              colSpan: 12
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 4
       x-walrus-ui:
         groupOrder:
         - Basic

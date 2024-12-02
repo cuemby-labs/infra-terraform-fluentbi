@@ -20,6 +20,21 @@ variable "config_output" {
   default = {}
 }
 
+variable "resources" {
+  type = map(map(string))
+  default = {
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
+  description = "Resource limits and requests for the FluentBit Helm release."
+}
+
 #
 # Contextual Fields
 #
